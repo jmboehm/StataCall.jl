@@ -1,0 +1,3 @@
+di "Hello World"
+
+quit()
