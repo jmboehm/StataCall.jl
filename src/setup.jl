@@ -2,7 +2,7 @@
 
 @static if is_windows()
 
-    # TODO
+    # TODO better ways of finding the Stata binary
     function locate_executable()
 
         # 1.) Environment Variable
@@ -72,7 +72,5 @@ end
     # TODO
 
 end
-
-function setStataExecutable(s::String)
 
 end
