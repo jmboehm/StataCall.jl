@@ -3,6 +3,20 @@
 @static if is_windows()
 
     # TODO
+    function locate_executable()
+
+        # 1.) Environment Variable
+        if haskey(ENV,"STATA_BIN")
+            return ENV["STATA_BIN"]
+        end
+
+        # if we're still here, we have not found the executable
+        error("Could not find the Stata executable. Please set the
+        \"STATA_BIN\" environment variable.")
+
+    end
+
+    stata_executable = locate_executable()
 
 end
 
@@ -49,12 +63,16 @@ end
 
     end
 
-    const stata_executable = locate_executable()
+    stata_executable = locate_executable()
 
 end
 
 @static if is_linux()
 
     # TODO
+
+end
+
+function setStataExecutable(s::String)
 
 end

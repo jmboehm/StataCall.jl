@@ -1,3 +1,0 @@
-di "Hello World"
-
-quit()
