@@ -87,6 +87,7 @@ function stataCall_internal(commands::Array{String,1}, dfIn::DataFrame, retrieve
        error("Error running the Stata script. Check the log file $logfilename.")
    else
        rm(checkdtafilename)
+       run(`cat $logfilename`)
    end
 
    # If we need to retrieve the Stata file, do that now ------------------

@@ -46,6 +46,7 @@ stataCall(commands::Array{String,1},
 
 ## TODO
 
+* Handle Inf's in DataFrame
 * Support Linux; have better way of finding Stata binary under Windows
 * Better sync between Julia's variable types and Stata's
 * Allow an interactive mode by creating a REPL in Stata and feeding it the commands from Julia. Might be slow because we can pass data only via the hard disk (except under Windows).
