@@ -46,6 +46,7 @@ stataCall(commands::Array{String,1},
 
 ## TODO
 
+* Log only the body of the Stata output, not headers and footers
 * Handle Inf's in DataFrame
 * Support Linux; have better way of finding Stata binary under Windows
 * Better sync between Julia's variable types and Stata's

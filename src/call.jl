@@ -3,9 +3,9 @@ stataCall(commands::Array{String,1}, retrieveData::Bool = true, doNotEscapeChara
     stataCall_internal(commands, DataFrame(), retrieveData, doNotEscapeCharacters, false)
 
 stataCall(commands::Array{String,1}, dfIn::DataFrame, retrieveData::Bool = true, doNotEscapeCharacters::Bool = false) =
-    stataCall_internal(commands, dfIn, retrieveData, doNotEscapeCharacters, false)
+    stataCall_internal(commands, dfIn, retrieveData=retrieveData, doNotEscapeCharacters=doNotEscapeCharacters, keepLog = false, quiet = false)
 
-function stataCall_internal(commands::Array{String,1}, dfIn::DataFrame, retrieveData = true, doNotEscapeCharacters::Bool = false, keepLog::Bool = false)
+function stataCall_internal(commands::Array{String,1}, dfIn::DataFrame; retrieveData = true, doNotEscapeCharacters::Bool = false, keepLog::Bool = false, quiet::Bool = false)
 
     # this one does the whole thing
     id = Base.Dates.datetime2epochms(now())
@@ -88,6 +88,9 @@ function stataCall_internal(commands::Array{String,1}, dfIn::DataFrame, retrieve
    else
        rm(checkdtafilename)
        run(`cat $logfilename`)
+    #    f = open("$logfilename");
+    #    println(readlines(f))
+    #    close(f)
    end
 
    # If we need to retrieve the Stata file, do that now ------------------
