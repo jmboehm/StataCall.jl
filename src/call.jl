@@ -1,6 +1,6 @@
 
-stataCall(commands::Array{String,1}, retrieveData::Bool = true, doNotEscapeCharacters::Bool = false) =
-    stataCall_internal(commands, DataFrame(), retrieveData, doNotEscapeCharacters, false)
+stataCall(commands::Array{String,1}, retrieveData::Bool = true, doNotEscapeCharacters::Bool = false, quiet::Bool = false) =
+    stataCall_internal(commands, DataFrame(), retrieveData, doNotEscapeCharacters, quiet)
 
 stataCall(commands::Array{String,1}, dfIn::DataFrame, retrieveData::Bool = true, doNotEscapeCharacters::Bool = false) =
     stataCall_internal(commands, dfIn, retrieveData=retrieveData, doNotEscapeCharacters=doNotEscapeCharacters, keepLog = false, quiet = false)
@@ -85,9 +85,12 @@ function stataCall_internal(commands::Array{String,1}, dfIn::DataFrame; retrieve
            end
        end
        error("Error running the Stata script. Check the log file $logfilename.")
+       run(`cat $logfilename`)
    else
        rm(checkdtafilename)
-       run(`cat $logfilename`)
+       if quiet==false
+          run(`cat $logfilename`)
+       end
     #    f = open("$logfilename");
     #    println(readlines(f))
     #    close(f)
