@@ -9,12 +9,13 @@ function stataCall_internal(commands::Array{String,1}, dfIn::DataFrame; retrieve
 
     # this one does the whole thing
     id = Base.Dates.datetime2epochms(now())
-    csvfilename = string("__$id.csv")
-    dtafilename = string("__$id.dta")
-    checkdtafilename = string("__$id.chk.dta") # this is a file that we use to check whether Stata completed successfully
-    dofilename = string("__$id.do")
-    logfilename = string("__$id.log")
     currentDir = pwd()
+    csvfilename = string(joinpath($currentDir, "__$id.csv"))
+    dtafilename = string(joinpath($currentDir, "__$id.dta"))
+    checkdtafilename = string(joinpath($currentDir, "__$id.chk.dta")) # this is a file that we use to check whether Stata completed successfully
+    dofilename = string(joinpath($currentDir, "__$id.do"))
+    logfilename = string(joinpath($currentDir, "__$id.log"))
+    
 
     if dfIn == DataFrame()
         in_file = false # we don't need to import anything into Stata
@@ -33,12 +34,12 @@ function stataCall_internal(commands::Array{String,1}, dfIn::DataFrame; retrieve
         # put the DataFrame into a csv
         writetable(csvfilename, dfIn, header=true, nastring = "")
         # have it imported in Stata
-        prefix_commands = [prefix_commands; "import delimited using $csvfilename , varnames(1) asdouble"]
+        prefix_commands = [prefix_commands; "import delimited using ""$csvfilename"" , varnames(1) asdouble"]
     end
 
     if retrieveData == true
         # we need to export the data from stata to julia
-        suffix_commands = [suffix_commands; "save $dtafilename, replace"]
+        suffix_commands = [suffix_commands; "save ""$dtafilename"", replace"]
     end
 
     # write check dta file
@@ -46,7 +47,7 @@ function stataCall_internal(commands::Array{String,1}, dfIn::DataFrame; retrieve
     suffix_commands = [suffix_commands; "clear"]
     suffix_commands = [suffix_commands; "set obs 1"]
     suffix_commands = [suffix_commands; "gen check = 1"]
-    suffix_commands = [suffix_commands; "save $checkdtafilename, replace"]
+    suffix_commands = [suffix_commands; "save ""$checkdtafilename"", replace"]
     suffix_commands = [suffix_commands; "cap log close"]
 
     # Write .csv file ----------------------------------------------------
