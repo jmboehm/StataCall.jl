@@ -1,6 +1,6 @@
 
 stataCall(commands::Array{String,1}, retrieveData::Bool = true, doNotEscapeCharacters::Bool = false, quiet::Bool = false) =
-    stataCall_internal(commands, DataFrame(), retrieveData, doNotEscapeCharacters, quiet)
+    stataCall_internal(commands, DataFrame(), retrieveData=retrieveData, doNotEscapeCharacters=doNotEscapeCharacters, keepLog=false, quiet=quiet)
 
 stataCall(commands::Array{String,1}, dfIn::DataFrame, retrieveData::Bool = true, doNotEscapeCharacters::Bool = false) =
     stataCall_internal(commands, dfIn, retrieveData=retrieveData, doNotEscapeCharacters=doNotEscapeCharacters, keepLog = false, quiet = false)
