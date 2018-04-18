@@ -47,7 +47,7 @@ function stataCall_internal(commands::Array{String,1}, dfIn::DataFrame; retrieve
     suffix_commands = [suffix_commands; "set obs 1"]
     suffix_commands = [suffix_commands; "gen check = 1"]
     suffix_commands = [suffix_commands; "save $checkdtafilename, replace"]
-    suffix_commands = [suffix_commands; "log close"]
+    suffix_commands = [suffix_commands; "cap log close"]
 
     # Write .csv file ----------------------------------------------------
     open(dofilename, "w") do f
