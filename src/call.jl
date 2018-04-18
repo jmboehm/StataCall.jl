@@ -10,11 +10,11 @@ function stataCall_internal(commands::Array{String,1}, dfIn::DataFrame; retrieve
     # this one does the whole thing
     id = Base.Dates.datetime2epochms(now())
     currentDir = pwd()
-    csvfilename = string(joinpath($currentDir, "__$id.csv"))
-    dtafilename = string(joinpath($currentDir, "__$id.dta"))
-    checkdtafilename = string(joinpath($currentDir, "__$id.chk.dta")) # this is a file that we use to check whether Stata completed successfully
-    dofilename = string(joinpath($currentDir, "__$id.do"))
-    logfilename = string(joinpath($currentDir, "__$id.log"))
+    csvfilename = string(joinpath(currentDir, "__$id.csv"))
+    dtafilename = string(joinpath(currentDir, "__$id.dta"))
+    checkdtafilename = string(joinpath(currentDir, "__$id.chk.dta")) # this is a file that we use to check whether Stata completed successfully
+    dofilename = string(joinpath(currentDir, "__$id.do"))
+    logfilename = string(joinpath(currentDir, "__$id.log"))
     
 
     if dfIn == DataFrame()
