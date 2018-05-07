@@ -19,6 +19,7 @@ The package tries to detect your Stata executable automatically by seaching in t
 
 ```julia
 srand(1)
+ENV["STATA_BIN"] = "C:\\Program Files (x86)\\Stata13\\StataMP-64.exe" # this is my location of the Stata executable
 df = DataFrame(myint = Int64.(floor.(100.*rand(Float64, 10))), myfloat = rand(Float64, 10))
 instructions = ["gen newvar1 = myint + myfloat";
 "gen newvar2 = floor(_n/2)";
@@ -35,7 +36,8 @@ The main function is `stataCall()`. The full form is
 stataCall(commands::Array{String,1},
      dfIn::DataFrame, 
      retrieveData::Bool = true, 
-     doNotEscapeCharacters::Bool = false
+     doNotEscapeCharacters::Bool = false,
+     quiet::Bool = false
      )
 ```
 
@@ -43,6 +45,9 @@ stataCall(commands::Array{String,1},
 * `dfIn` is an (optional) `DataFrame` that you want Stata to open before starting to execute the `commands`.
 * `retrieveData` is a `Bool` that says whether you want to retrieve the data after your last command. If `true`, it will be returned as a `DataFrame`.
 * `doNotEscapeCharacters` is a `Bool` that determines whether the strings in `commands` should be escaped.
+* `quiet` is a `Bool` that determines whether the Stata output should be suppressed if everything went well. If the script did not finish, output will be displayed.
+
+The function can also be called without the `dfIn` argument, in which case it starts with an empty dataset.
 
 ## TODO
 
