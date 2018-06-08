@@ -32,7 +32,7 @@ function stataCall_internal(commands::Array{String,1}, dfIn::DataFrame; retrieve
 
     if in_file == true
         # put the DataFrame into a csv
-        writetable(csvfilename, dfIn, header=true, nastring = "")
+        CSV.write(csvfilename, dfIn; header=true, missingstring = "")
         # have it imported in Stata
         prefix_commands = [prefix_commands; "import delimited using ""$csvfilename"" , varnames(1) asdouble case(preserve)"]
     end
