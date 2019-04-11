@@ -1,6 +1,6 @@
 # setup.jl
 
-@static if is_windows()
+@static if Sys.iswindows()
 
     # TODO better ways of finding the Stata binary
     function locate_executable()
@@ -20,7 +20,7 @@
 
 end
 
-@static if is_apple()
+@static if Sys.isapple()
 
     function locate_executable()
 
@@ -67,7 +67,7 @@ end
 
 end
 
-@static if is_linux()
+@static if Sys.islinux()
 
     # TODO
 

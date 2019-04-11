@@ -8,7 +8,7 @@ stataCall(commands::Array{String,1}, dfIn::DataFrame, retrieveData::Bool = true,
 function stataCall_internal(commands::Array{String,1}, dfIn::DataFrame; retrieveData = true, doNotEscapeCharacters::Bool = false, keepLog::Bool = false, quiet::Bool = false)
 
     # this one does the whole thing
-    id = Base.Dates.datetime2epochms(now())
+    id = Dates.datetime2epochms(now())
     currentDir = pwd()
     csvfilename = string(joinpath(currentDir, "__$id.csv"))
     dtafilename = string(joinpath(currentDir, "__$id.dta"))
@@ -27,19 +27,19 @@ function stataCall_internal(commands::Array{String,1}, dfIn::DataFrame; retrieve
     # Assemble .do file commands ------------------------------------------
 
     prefix_commands = [string("// Temporary do-file created by StataCall.jl on ", Dates.format(now(), "e, dd u yyyy HH:MM:SS"), " \n")]
-    prefix_commands = [prefix_commands; string("cd ""$currentDir"" ")]
+    prefix_commands = [prefix_commands; string("cd \"$currentDir\" ")]
     suffix_commands = [""]
 
     if in_file == true
         # put the DataFrame into a csv
-        CSV.write(csvfilename, dfIn; header=true, missingstring = "")
+        CSV.write(csvfilename, dfIn; missingstring = "")
         # have it imported in Stata
-        prefix_commands = [prefix_commands; "import delimited using ""$csvfilename"" , varnames(1) asdouble case(preserve)"]
+        prefix_commands = [prefix_commands; "import delimited using \"$csvfilename\" , varnames(1) asdouble case(preserve)"]
     end
 
     if retrieveData == true
         # we need to export the data from stata to julia
-        suffix_commands = [suffix_commands; "save ""$dtafilename"", replace"]
+        suffix_commands = [suffix_commands; "save \"$dtafilename\", replace"]
     end
 
     # write check dta file
@@ -47,7 +47,7 @@ function stataCall_internal(commands::Array{String,1}, dfIn::DataFrame; retrieve
     suffix_commands = [suffix_commands; "clear"]
     suffix_commands = [suffix_commands; "set obs 1"]
     suffix_commands = [suffix_commands; "gen check = 1"]
-    suffix_commands = [suffix_commands; "save ""$checkdtafilename"", replace"]
+    suffix_commands = [suffix_commands; "save \"$checkdtafilename\", replace"]
     suffix_commands = [suffix_commands; "cap log close"]
 
     # Write .csv file ----------------------------------------------------
@@ -84,6 +84,8 @@ function stataCall_internal(commands::Array{String,1}, dfIn::DataFrame; retrieve
            if isfile(dtafilename)
                rm(dtafilename)
            end
+        catch 
+
        end
        error("Error running the Stata script. Check the log file $logfilename.")
        run(`cat $logfilename`)
@@ -128,11 +130,11 @@ end
 
 function runStata(filename::String)
 
-    if is_unix()
+    if Sys.isunix()
         # "/Applications/Stata/StataMP.app/Contents/MacOS/StataMP" -e bigjob.do
         run(`$stata_executable -e $filename`)
 
-    elseif is_windows()
+    elseif Sys.iswindows()
         # "C:\Program Files\Stata15\StataMP" /e do c:\data\bigjob.do
         run(`"$stata_executable" /e do $filename`)
 

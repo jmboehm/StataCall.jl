@@ -1,4 +1,5 @@
-julia 0.6
-FileIO 0.6.1
-StatFiles 0.2.0
-DataFrames 0.10.1
+julia 1.0
+FileIO 1.0.6
+StatFiles 0.8.0
+DataFrames 0.17.1
+CSV 0.4.3

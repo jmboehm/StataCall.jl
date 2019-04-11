@@ -31,7 +31,7 @@ module StataCall
     ##
     ##############################################################################
 
-    using FileIO, StatFiles, DataFrames, CSV
+    using FileIO, StatFiles, DataFrames, CSV, Dates
 
     ##############################################################################
     ##
