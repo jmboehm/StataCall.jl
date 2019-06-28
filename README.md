@@ -2,17 +2,13 @@
 
 [![Build Status](https://travis-ci.org/jmboehm/StataCall.jl.svg?branch=master)](https://travis-ci.org/jmboehm/StataCall.jl) [![Coverage Status](https://coveralls.io/repos/jmboehm/StataCall.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/jmboehm/StataCall.jl?branch=master)
 
-Allows Stata operations on Julia DataFrames by exporting it to Stata, running a .do file, and re-importing the result into Julia. Requires a copy of Stata.
+Allows Stata operations on Julia DataFrames by exporting it to Stata, running a .do file, and re-importing the result into Julia. Requires a copy of Stata. Tested on OSX and Windows.
 
 ## Installation
 
-Clone the package into your Julia package directory
-```julia
-Pkg.clone("https://github.com/jmboehm/StataCall.jl.git")
+Using julia > 1.0:
 ```
-and then load it with
-```julia
-using StataCall
+pkg> add http://github.com/jmboehm/StataCall.jl.git
 ```
 
 The package tries to detect your Stata executable automatically by seaching in the most common file paths (under OSX). If it does not find it, it expects you to pass it in the `STATA_BIN` environment variable.
