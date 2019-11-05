@@ -16,13 +16,24 @@ The package tries to detect your Stata executable automatically by seaching in t
 ## A Quick Example
 
 ```julia
-srand(1)
+# Set location of the Stata executable
 ENV["STATA_BIN"] = "C:\\Program Files (x86)\\Stata13\\StataMP-64.exe" # this is my location of the Stata executable
-df = DataFrame(myint = Int64.(floor.(100.*rand(Float64, 10))), myfloat = rand(Float64, 10))
+
+# Set random seed for reproducibility
+srand(1)
+
+using DataFrames, StataCall
+
+# Dummy data set
+df = DataFrame(myint = Int64.(floor.(100.0*rand(Float64, 10))), myfloat = rand(Float64, 10))
+
+# Stata instructions to run
 instructions = ["gen newvar1 = myint + myfloat";
-"gen newvar2 = floor(_n/2)";
-"bysort newvar2: egen newvar3 = mean(newvar1)"
+                "gen newvar2 = floor(_n/2)";
+                "bysort newvar2: egen newvar3 = mean(newvar1)"
 ]
+
+# Execute instructions in Stata on the dummy data set
 dfOut = StataCall.stataCall(instructions, df)
 ```
 
