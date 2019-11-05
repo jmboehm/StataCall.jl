@@ -34,7 +34,7 @@ instructions = ["gen newvar1 = myint + myfloat";
 ]
 
 # Execute instructions in Stata on the dummy data set
-dfOut = StataCall.stataCall(instructions, df)
+dfOut = stataCall(instructions, df)
 ```
 
 ## Documentation
