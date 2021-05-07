@@ -1,0 +1,6 @@
+steps:
+  - label: ":ocean: Build StataCall.jl"
+    command: "bash test/runtests.sh"
+    artifact_paths: "artifacts/*"
+    agents:
+      queue: "${BUILDKITE_AGENT_META_DATA_QUEUE:-default}"

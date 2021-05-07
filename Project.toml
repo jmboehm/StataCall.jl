@@ -11,10 +11,10 @@ FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
 StatFiles = "1463e38c-9381-5320-bcd4-4134955f093a"
 
 [compat]
-CSV = ">= 0.5.6"
-DataFrames = ">= 0.18.3"
-FileIO = ">= 1.0.7"
-StatFiles = ">= 0.8.0"
+CSV = "0.8"
+DataFrames = "1"
+FileIO = "1"
+StatFiles = "0.8"
 julia = "1"
 
 [extras]

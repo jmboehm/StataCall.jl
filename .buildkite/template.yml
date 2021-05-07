@@ -1,0 +1,5 @@
+name: "StataCall.jl"
+description: "StataCall.jl"
+steps:
+  - command: "buildkite-agent pipeline upload"
+    label: ":pipeline:"
