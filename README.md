@@ -1,14 +1,20 @@
 # StataCall
 
+<!--![Lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)-->
+<!--![Lifecycle](https://img.shields.io/badge/lifecycle-stable-green.svg)
+![Lifecycle](https://img.shields.io/badge/lifecycle-retired-orange.svg)
+![Lifecycle](https://img.shields.io/badge/lifecycle-archived-red.svg)
+![Lifecycle](https://img.shields.io/badge/lifecycle-dormant-blue.svg) -->
+![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
 [![Build Status](https://travis-ci.org/jmboehm/StataCall.jl.svg?branch=master)](https://travis-ci.org/jmboehm/StataCall.jl) [![Coverage Status](https://coveralls.io/repos/jmboehm/StataCall.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/jmboehm/StataCall.jl?branch=master)
 
-Allows Stata operations on Julia DataFrames by exporting it to Stata, running a .do file, and re-importing the result into Julia. Requires a copy of Stata. Tested on OSX and Windows.
+Allows Stata operations on Julia DataFrames by exporting it to Stata, running a .do file, and re-importing the result into Julia. Requires a copy of Stata. 
 
 ## Installation
 
 Using julia > 1.0:
 ```
-pkg> add http://github.com/jmboehm/StataCall.jl.git
+pkg> add StataCall
 ```
 
 The package tries to detect your Stata executable automatically by seaching in the most common file paths (under OSX). If it does not find it, it expects you to pass it in the `STATA_BIN` environment variable.
@@ -46,6 +52,10 @@ stataCall(commands::Array{String,1},
 * `quiet` is a `Bool` that determines whether the Stata output should be suppressed if everything went well. If the script did not finish, output will be displayed.
 
 The function can also be called without the `dfIn` argument, in which case it starts with an empty dataset.
+
+# Contributions
+
+Please file bug reports on the [issues tracker of the Github repo](https://github.com/jmboehm/StataCall.jl/issues). Fixes and improvements in the form of pull requests are very welcome.
 
 ## TODO
 

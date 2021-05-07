@@ -76,7 +76,7 @@ function stataCall_internal(commands::Array{String,1}, dfIn::DataFrame; retrieve
 
    if !isfile(checkdtafilename)
        println("Error running Stata script. Printing log file:")
-       run(`cat $logfilename`)
+       println(read(logfilename, String))
        try
            # there was an error... still, clean up
            rm(csvfilename)
@@ -88,11 +88,11 @@ function stataCall_internal(commands::Array{String,1}, dfIn::DataFrame; retrieve
 
        end
        error("Error running the Stata script. Check the log file $logfilename.")
-       run(`cat $logfilename`)
+       println(read(logfilename, String))
    else
        rm(checkdtafilename)
        if quiet==false
-          run(`cat $logfilename`)
+            println(read(logfilename, String))
        end
     #    f = open("$logfilename");
     #    println(readlines(f))
