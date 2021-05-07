@@ -24,14 +24,13 @@ testOut = [55.236034f0
 15.625783
 85.986664]
 for i in 1:length(testOut)
-    @test isapprox(dfOut[:newvar3][i], testOut[i], atol = myeps)
+    @test isapprox(dfOut[!,:newvar3][i], testOut[i], atol = myeps)
 end
 
 # With missing values
 Random.seed!(1)
 df = DataFrame(myint = Int64.(floor.(100 .*rand(Float64, 10))), myfloat = rand(Float64, 10))
-df[:myint] = convert(Array{Union{Int64,Missing},1},df[:myint])
-df[:myfloat] = convert(Array{Union{Float64,Missing},1},df[:myfloat])
+allowmissing!(df)
 df[4,:myint] = missing
 df[2,:myfloat] = missing
 
@@ -51,5 +50,5 @@ testOut = [55.236034
 15.625783
 85.986664]
 for i in 1:length(testOut)
-    @test isapprox(dfOut[:newvar3][i], testOut[i], atol = myeps)
+    @test isapprox(dfOut[!,:newvar3][i], testOut[i], atol = myeps)
 end
