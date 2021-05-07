@@ -17,7 +17,7 @@ echo "+++ :hammer: Running Julia to test:"
 
 mkdir artifacts
 
-STATA_BIN='C:\Program Files\Stata16\StataMP-64.exe' julia --project -e 'using Pkg; try Pkg.test(); exit(0); catch; exit(1) end' >> artifacts/build.log
+STATA_BIN='C:\Program Files\Stata16\StataMP-64.exe' /c/Program\ Files/Julia-1.6.1/bin/julia.exe --project -e 'using Pkg; try Pkg.test(); exit(0); catch; exit(1) end' >> artifacts/build.log
 status=$?
 
 if [ $status -eq 0 ]; then
