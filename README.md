@@ -6,7 +6,7 @@
 ![Lifecycle](https://img.shields.io/badge/lifecycle-archived-red.svg)
 ![Lifecycle](https://img.shields.io/badge/lifecycle-dormant-blue.svg) -->
 ![Lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)
-[![Build Status](https://travis-ci.org/jmboehm/StataCall.jl.svg?branch=master)](https://travis-ci.org/jmboehm/StataCall.jl) [![Coverage Status](https://coveralls.io/repos/jmboehm/StataCall.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/jmboehm/StataCall.jl?branch=master)
+<!--[![Build Status](https://travis-ci.org/jmboehm/StataCall.jl.svg?branch=master)](https://travis-ci.org/jmboehm/StataCall.jl) [![Coverage Status](https://coveralls.io/repos/jmboehm/StataCall.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/jmboehm/StataCall.jl?branch=master)-->
 
 Allows Stata operations on Julia DataFrames by exporting it to Stata, running a .do file, and re-importing the result into Julia. Requires a copy of Stata. 
 
@@ -22,12 +22,12 @@ The package tries to detect your Stata executable automatically by seaching in t
 ## A Quick Example
 
 ```julia
-srand(1)
 ENV["STATA_BIN"] = "C:\\Program Files (x86)\\Stata13\\StataMP-64.exe" # this is my location of the Stata executable
-df = DataFrame(myint = Int64.(floor.(100.*rand(Float64, 10))), myfloat = rand(Float64, 10))
+using StataCall, DataFrames
+df = DataFrame(myint = Int64.(floor.(100 .* rand(Float64, 10))), myfloat = rand(Float64, 10))
 instructions = ["gen newvar1 = myint + myfloat";
-"gen newvar2 = floor(_n/2)";
-"bysort newvar2: egen newvar3 = mean(newvar1)"
+"gen long newvar2 = floor(_n/2)";
+"bysort newvar2: egen double newvar3 = mean(newvar1)"
 ]
 dfOut = StataCall.stataCall(instructions, df)
 ```
