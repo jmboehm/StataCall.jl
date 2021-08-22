@@ -27,6 +27,10 @@ end
         # try a few common directories
         if isfile("/usr/bin/stata")
             return "/usr/bin/stata"
+       elseif isfile("/usr/local/bin/stata-se")
+            return "/usr/local/bin/stata-se"
+       elseif isfile("/usr/local/bin/stata-mp")
+            return "/usr/local/bin/stata-mp"
         elseif isdir("/Applications/Stata/StataSE.app")
             appdir = "/Applications/Stata/StataSE.app"
         elseif isdir("/Applications/Stata/StataMP.app")
